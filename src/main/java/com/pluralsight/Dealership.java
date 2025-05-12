@@ -86,8 +86,21 @@ public class Dealership {
         return matches;
     }
 
+    //Method to that takes the user min and max year to search for
     public ArrayList<Vehicle> getVehiclesByYear(int minYear, int maxYear) {
-        return null;
+        //Creates a new list to store all the vehicles that match the min and max year
+        ArrayList<Vehicle> matches = new ArrayList<>();
+
+        //Loop through each vehicle in the inventory
+        for (Vehicle v : inventory) {
+            //Checks if the vehicles matches make and model
+            if (v.getYear() >= minYear && v.getYear() <= maxYear) {
+                //Adds vehicle to matches list
+                matches.add(v);
+            }
+        }
+        //Returns the list of matches
+        return matches;
     }
 
     public ArrayList<Vehicle> getVehiclesByColor(String color) {

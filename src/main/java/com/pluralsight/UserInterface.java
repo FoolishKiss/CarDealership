@@ -40,6 +40,9 @@ public class UserInterface {
                 case 3:
                     processGetByMakeModelRequest();
                     break;
+                case 4:
+                    processGetByYearRequest();
+                    break;
                 case 99:
                     System.out.println("Goodbye.");
                     break;
@@ -63,6 +66,7 @@ public class UserInterface {
         System.out.println("1 - list all vehicles");
         System.out.println("2 - Find vehicles by price range");
         System.out.println("3 - Find vehicles by make and model");
+        System.out.println("4 - Find vehicles by year range");
         System.out.println("99 - Exit");
         System.out.println("\n");
     }
@@ -115,6 +119,23 @@ public class UserInterface {
 
         //Calls dealership method to find all vehicles with make model
         ArrayList<Vehicle> results = dealership.getVehiclesByMakeModel(make, model);
+        //Uses display method to vehicles
+        displayVehicles(results);
+    }
+
+    //Method to search users make model
+    private void processGetByYearRequest() {
+        //Scanner to get user make and model
+        Scanner year = new Scanner(System.in);
+
+        //Asks user for min and max year
+        System.out.println("Enter min year: ");
+        int minYear = year.nextInt();
+        System.out.println("Enter max year: ");
+        int maxYear = year.nextInt();
+
+        //Calls dealership method to find all vehicles within year range
+        ArrayList<Vehicle> results = dealership.getVehiclesByYear(minYear, maxYear);
         //Uses display method to vehicles
         displayVehicles(results);
     }
