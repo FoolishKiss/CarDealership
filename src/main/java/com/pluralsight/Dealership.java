@@ -51,6 +51,7 @@ public class Dealership {
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);
     }
+
     //Method to that takes the user min and max range to search within
     public ArrayList<Vehicle> getVehiclesByPrice(double min, double max) {
         //Creates a new list to store all the vehicles that match the price range
@@ -68,8 +69,21 @@ public class Dealership {
         return matches;
     }
 
+    //Method to that takes the user make and model to search for
     public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        return null;
+        //Creates a new list to store all the vehicles that match the make and model
+        ArrayList<Vehicle> matches = new ArrayList<>();
+
+        //Loop through each vehicle in the inventory
+        for (Vehicle v : inventory) {
+            //Checks if the vehicles matches make and model
+            if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
+                //Adds vehicle to matches list
+                matches.add(v);
+            }
+        }
+        //Returns the list of matches
+        return matches;
     }
 
     public ArrayList<Vehicle> getVehiclesByYear(int minYear, int maxYear) {

@@ -37,6 +37,9 @@ public class UserInterface {
                 case 2:
                     processGetByPriceRequest();
                     break;
+                case 3:
+                    processGetByMakeModelRequest();
+                    break;
                 case 99:
                     System.out.println("Goodbye.");
                     break;
@@ -59,6 +62,7 @@ public class UserInterface {
         System.out.println("\n === Dealership Menu ===");
         System.out.println("1 - list all vehicles");
         System.out.println("2 - Find vehicles by price range");
+        System.out.println("3 - Find vehicles by make and model");
         System.out.println("99 - Exit");
         System.out.println("\n");
     }
@@ -97,4 +101,24 @@ public class UserInterface {
         displayVehicles(results);
 
     }
+
+    //Method to search users make model
+    private void processGetByMakeModelRequest() {
+        //Scanner to get user make and model
+        Scanner makeModel = new Scanner(System.in);
+
+        //Asks user for make and model
+        System.out.println("Enter make: ");
+        String make = makeModel.nextLine();
+        System.out.println("Enter model: ");
+        String model = makeModel.nextLine();
+
+        //Calls dealership method to find all vehicles with make model
+        ArrayList<Vehicle> results = dealership.getVehiclesByMakeModel(make, model);
+        //Uses display method to vehicles
+        displayVehicles(results);
+    }
+
+
+
 }
