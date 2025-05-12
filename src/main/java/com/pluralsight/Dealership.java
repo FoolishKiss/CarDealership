@@ -44,6 +44,10 @@ public class Dealership {
         return inventory;
     }
 
+    public ArrayList<Vehicle> getAllVehicles() {
+        return inventory;
+    }
+
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);
     }

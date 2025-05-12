@@ -56,6 +56,7 @@ public class UserInterface {
         System.out.println("\n === Dealership Menu ===");
         System.out.println("1 - list all vehicles");
         System.out.println("99 - Exit");
+        System.out.println("\n");
     }
 
     //Method that takes a list of vehicles and prints them out in the formated way
