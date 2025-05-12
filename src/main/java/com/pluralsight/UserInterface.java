@@ -34,6 +34,9 @@ public class UserInterface {
                 case 1:
                     processAllVehiclesRequest();
                     break;
+                case 2:
+                    processGetByPriceRequest();
+                    break;
                 case 99:
                     System.out.println("Goodbye.");
                     break;
@@ -55,6 +58,7 @@ public class UserInterface {
     private void displayMenu() {
         System.out.println("\n === Dealership Menu ===");
         System.out.println("1 - list all vehicles");
+        System.out.println("2 - Find vehicles by price range");
         System.out.println("99 - Exit");
         System.out.println("\n");
     }
@@ -74,5 +78,23 @@ public class UserInterface {
     private void processAllVehiclesRequest() {
         ArrayList<Vehicle> allVehicles = dealership.getAllVehicles();
         displayVehicles(allVehicles);
+    }
+
+    //Method for handling price range input and results
+    private void processGetByPriceRequest() {
+        //Scanner to take user price range input
+        Scanner price = new Scanner(System.in);
+
+        //Asks user for price range and reads it as a double
+        System.out.println("Enter min price: ");
+        double min = price.nextDouble();
+        System.out.println("Enter max price: ");
+        double max = price.nextDouble();
+
+        //Calls dealership method to find all vehicles in price range
+        ArrayList<Vehicle> results = dealership.getVehiclesByPrice(min, max);
+        //Uses display method to vehicles
+        displayVehicles(results);
+
     }
 }
