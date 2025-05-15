@@ -18,7 +18,7 @@ public class DealershipFileManager {
             //Read inventory file line by line
             BufferedReader reader = new BufferedReader(new FileReader("inventory.csv"));
 
-            //Read first line of the file and split it by |, and store the parts in a string[]
+            //Read first line of the file and split it by |, and store the parts in dealerInfo a string[]
             String[] dealerInfo = reader.readLine().split("\\|");
 
             //Use the values from dealer info to instantiate dealership object

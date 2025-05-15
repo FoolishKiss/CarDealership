@@ -40,14 +40,17 @@ public class Dealership {
         this.phone = phone;
     }
 
+    //Method to show inventory list
     public ArrayList<Vehicle> getInventory() {
         return inventory;
     }
 
+    //Method to show all vehicles in the inventory list
     public ArrayList<Vehicle> getAllVehicles() {
         return inventory;
     }
 
+    //Method to add vehicle to inventory list
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);
     }
@@ -103,18 +106,33 @@ public class Dealership {
         return matches;
     }
 
+    //Method to take users color choice and searches for it
     public ArrayList<Vehicle> getVehiclesByColor(String color) {
-        return null;
+        // Creates a list to store user matches
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        // Loops through the inventory and stores the matches in variable v
+        for (Vehicle v : inventory) {
+            // Checks if the color matches user input
+            if (v.getColor().equalsIgnoreCase(color)) {
+                // Adds the vehicle to list of matches
+                matches.add(v);
+            }
+        }
+        // Return matches
+        return matches;
     }
 
+    //Method to search for vehicle by vehicle mileage
     public ArrayList<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) {
         return null;
     }
 
+    //Method to search for vehicle by vehicle type
     public ArrayList<Vehicle> getVehiclesByType(String type) {
         return null;
     }
 
+    //Method to remove vehicle
     public void removeVehicle(Vehicle vehicle) {
         //
     }

@@ -43,6 +43,9 @@ public class UserInterface {
                 case 4:
                     processGetByYearRequest();
                     break;
+                case 5:
+                    processGetByColorRequest();
+                    break;
                 case 99:
                     System.out.println("Goodbye.");
                     break;
@@ -67,6 +70,7 @@ public class UserInterface {
         System.out.println("2 - Find vehicles by price range");
         System.out.println("3 - Find vehicles by make and model");
         System.out.println("4 - Find vehicles by year range");
+        System.out.println("5 - Find vehicles by color");
         System.out.println("99 - Exit");
         System.out.println("\n");
     }
@@ -136,8 +140,24 @@ public class UserInterface {
 
         //Calls dealership method to find all vehicles within year range
         ArrayList<Vehicle> results = dealership.getVehiclesByYear(minYear, maxYear);
-        //Uses display method to vehicles
+        //Uses display method to show vehicles
         displayVehicles(results);
+    }
+
+    //Method to search for user color
+    private void processGetByColorRequest() {
+        // Scanner to get user color choice
+        Scanner userColor = new Scanner(System.in);
+
+        // Ask user what color
+        System.out.println("Enter color: ");
+        String color = userColor.nextLine();
+
+        //Calls dealership method to find all vehicles with user color choice
+        ArrayList<Vehicle> results = dealership.getVehiclesByColor(color);
+        //Uses display method to show vehicles
+        displayVehicles(results);
+
     }
 
 
