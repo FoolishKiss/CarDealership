@@ -46,6 +46,12 @@ public class UserInterface {
                 case 5:
                     processGetByColorRequest();
                     break;
+                case 8:
+                    processAddVehicleRequest();
+                    break;
+                case 9:
+                    processRemoveVehicleRequest();
+                    break;
                 case 99:
                     System.out.println("Goodbye.");
                     break;
@@ -71,6 +77,8 @@ public class UserInterface {
         System.out.println("3 - Find vehicles by make and model");
         System.out.println("4 - Find vehicles by year range");
         System.out.println("5 - Find vehicles by color");
+        System.out.println("8 - Add vehicle to inventory");
+        System.out.println("9 - Remove vehicle from inventory");
         System.out.println("99 - Exit");
         System.out.println("\n");
     }
@@ -158,6 +166,60 @@ public class UserInterface {
         //Uses display method to show vehicles
         displayVehicles(results);
 
+    }
+
+    //Method to add a vehicle
+    private void processAddVehicleRequest() {
+        Scanner addVehicle = new Scanner(System.in);
+
+        // Ask user for Vehicle info
+        System.out.println("Enter VIN: ");
+        int vin = addVehicle.nextInt();
+        addVehicle.nextLine();
+
+        System.out.println("Enter year: ");
+        int year = addVehicle.nextInt();
+        addVehicle.nextLine();
+
+        System.out.println("Enter make: ");
+        String make = addVehicle.nextLine();
+
+        System.out.println("Enter model: ");
+        String model = addVehicle.nextLine();
+
+        System.out.println("Enter vehicle type: ");
+        String type = addVehicle.nextLine();
+
+        System.out.println("Enter color: ");
+        String color = addVehicle.nextLine();
+
+        System.out.println("Enter odometer: ");
+        int odometer = addVehicle.nextInt();
+
+        System.out.println("Enter price: ");
+        double price = addVehicle.nextDouble();
+
+        Vehicle newVehicle = new Vehicle(vin, year, make, model, type, color, odometer,price);
+        dealership.addVehicle(newVehicle);
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
+
+        System.out.println("\n Vehicle added successfully.");
+    }
+
+    private void processRemoveVehicleRequest() {
+        Scanner remove = new Scanner(System.in);
+
+        System.out.println("Enter the VIN to remove vehicle: ");
+        int vin = remove.nextInt();
+
+        dealership.removeVehicle(vin);
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
+
+        System.out.println("Vehicle removed.");
     }
 
 

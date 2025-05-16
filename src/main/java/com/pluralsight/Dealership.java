@@ -132,8 +132,19 @@ public class Dealership {
         return null;
     }
 
-    //Method to remove vehicle
-    public void removeVehicle(Vehicle vehicle) {
+    //Method to remove vehicle by vin
+    public void removeVehicle(int vin) {
+        // Create a variable to hold the match
+        Vehicle toRemove = null;
         //
+        for (Vehicle v : inventory) {
+            if (v.getVin() == vin) {
+                toRemove = v;
+                break;
+            }
+        }
+        if (toRemove != null) {
+            inventory.remove(toRemove);
+        }
     }
 }
