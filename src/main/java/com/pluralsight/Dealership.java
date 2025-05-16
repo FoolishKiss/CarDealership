@@ -124,12 +124,36 @@ public class Dealership {
 
     //Method to search for vehicle by vehicle mileage
     public ArrayList<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) {
-        return null;
+        //Creates a new list to store all the vehicles that match the min and max year
+        ArrayList<Vehicle> matches = new ArrayList<>();
+
+        //Loop through each vehicle in the inventory
+        for (Vehicle v : inventory) {
+            //Checks if the vehicles matches make and model
+            if (v.getOdometer() >= minMileage && v.getOdometer() <= maxMileage) {
+                //Adds vehicle to matches list
+                matches.add(v);
+            }
+        }
+        //Returns the list of matches
+        return matches;
     }
 
     //Method to search for vehicle by vehicle type
     public ArrayList<Vehicle> getVehiclesByType(String type) {
-        return null;
+        //Creates a new list to store all the vehicles that match the min and max year
+        ArrayList<Vehicle> matches = new ArrayList<>();
+
+        //Loop through each vehicle in the inventory
+        for (Vehicle v : inventory) {
+            //Checks if the vehicles matches make and model
+            if (v.getVehicleType(). equalsIgnoreCase(type)) {
+                //Adds vehicle to matches list
+                matches.add(v);
+            }
+        }
+        //Returns the list of matches
+        return matches;
     }
 
     //Method to remove vehicle by vin

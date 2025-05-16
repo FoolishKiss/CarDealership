@@ -46,6 +46,12 @@ public class UserInterface {
                 case 5:
                     processGetByColorRequest();
                     break;
+                case 6:
+                    processGetByMileageRequest();
+                    break;
+                case 7:
+                    processGetByTypeRequest();
+                    break;
                 case 8:
                     processAddVehicleRequest();
                     break;
@@ -77,6 +83,8 @@ public class UserInterface {
         System.out.println("3 - Find vehicles by make and model");
         System.out.println("4 - Find vehicles by year range");
         System.out.println("5 - Find vehicles by color");
+        System.out.println("6 - Find vehicles by mileage range");
+        System.out.println("7 - Find vehicles by type (SUV, Truck, Sedan, Van)");
         System.out.println("8 - Add vehicle to inventory");
         System.out.println("9 - Remove vehicle from inventory");
         System.out.println("99 - Exit");
@@ -208,6 +216,7 @@ public class UserInterface {
         System.out.println("\n Vehicle added successfully.");
     }
 
+    // Method to remove a vehicle
     private void processRemoveVehicleRequest() {
         Scanner remove = new Scanner(System.in);
 
@@ -220,6 +229,39 @@ public class UserInterface {
         fileManager.saveDealership(dealership);
 
         System.out.println("Vehicle removed.");
+    }
+
+    //Method to search by mileage range
+    private void processGetByMileageRequest() {
+        //Scanner to get users mileage range
+        Scanner mileage = new Scanner(System.in);
+
+        //Ask user for min and max mileage
+        System.out.println("Enter min mileage: ");
+        int min = mileage.nextInt();
+        System.out.println("Enter max mileage: ");
+        int max = mileage.nextInt();
+
+        //Calls dealership method to find all vehicles within year range
+        ArrayList<Vehicle> results = dealership.getVehiclesByMileage(min, max);
+        //Uses display method to show vehicles
+        displayVehicles(results);
+
+    }
+
+    //Method to search by type
+    private void processGetByTypeRequest() {
+        //Scanner to get user type
+        Scanner typeVehicle = new Scanner(System.in);
+
+        //Ask user what type of vehicle to look for
+        System.out.println("Enter vehicle type (Sedan, truck, SUV, van): ");
+        String type = typeVehicle.nextLine();
+
+        //Calls dealership method to find all vehicles matches
+        ArrayList<Vehicle> results = dealership.getVehiclesByType(type);
+        //Uses display method to show vehicles
+        displayVehicles(results);
     }
 
 
