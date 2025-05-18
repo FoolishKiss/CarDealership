@@ -2,18 +2,25 @@ package com.pluralsight;
 
 public class LeaseContract extends Contract{
 
-    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicle) {
+    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicle, double expectedEndValue, double leaseFee) {
         super(date, customerName, customerEmail, vehicle);
+
     }
 
     @Override
     public double getTotalPrice() {
-        return 0;
+        double price = getVehicle().getPrice();
+
+        return price + (price * 0.07);
     }
 
     @Override
     public double getMonthlyPayment() {
-        return 0;
+        double price = getVehicle().getPrice();
+        double endValue = price * 0.5;
+        double leaseFee = price * 0.07;
+
+        return ((price - endValue) / 36) + leaseFee;
     }
 
 }
