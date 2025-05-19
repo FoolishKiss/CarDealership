@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,6 +59,9 @@ public class UserInterface {
                 case 9:
                     processRemoveVehicleRequest();
                     break;
+                case 10:
+                    processSellorLease();
+                    break;
                 case 99:
                     System.out.println("Goodbye.");
                     break;
@@ -87,6 +91,7 @@ public class UserInterface {
         System.out.println("7 - Find vehicles by type (SUV, Truck, Sedan, Van)");
         System.out.println("8 - Add vehicle to inventory");
         System.out.println("9 - Remove vehicle from inventory");
+        System.out.println("10 - Sell or lease a vehicle");
         System.out.println("99 - Exit");
         System.out.println("\n");
     }
@@ -262,6 +267,85 @@ public class UserInterface {
         ArrayList<Vehicle> results = dealership.getVehiclesByType(type);
         //Uses display method to show vehicles
         displayVehicles(results);
+    }
+
+    //Method to sell or lease a vehicle
+    private void processSellorLease() {
+
+        //Scanner to get user input
+        Scanner sellLease = new Scanner(System.in);
+
+        // Ask user for the VIN to sell or lease
+        System.out.println("Enter VIN of Vehicle you wish to Sell/Lease: ");
+        int vin = sellLease.nextInt();
+        sellLease.nextLine();
+
+        // Find the vehicle by VIN in the inventory
+        Vehicle vehicleToSell = null;
+
+        //Loops through inventory to find match
+        for (Vehicle v : dealership.getAllVehicles()) {
+            if (v.getVin() == vin) {
+                vehicleToSell = v;
+                break;
+            }
+        }
+
+        // If vehicle is not found
+        if (vehicleToSell == null) {
+            System.out.println("Vehicle not found.");
+            return;
+        }
+
+        // Ask for contract info
+        System.out.println("Enter customer name: ");
+        String name = sellLease.nextLine();
+
+        System.out.println("Enter customer email: ");
+        String email = sellLease.nextLine();
+
+        //Ask if it's a sale or lease
+        System.out.println("Is this a sale or lease? (enter sale or lease):  ");
+        String type = sellLease.nextLine();
+
+        // Get today's date
+        String date = LocalDate.now().toString();
+
+        Contract contract = null;
+
+        if (type.equals("sales")) {
+
+            //Ask if the customer is financing
+            System.out.println("Is the customer financing? (true/false)");
+            boolean isFianced = sellLease.nextBoolean();
+
+            // Create the sales contract
+            contract = new SalesContract(date, name, email, vehicleToSell, isFianced);
+
+        } else if (type.equals("lease")) {
+
+            // Create the lease contract
+            contract = new LeaseContract(date, name, email, vehicleToSell);
+
+        } else {
+            System.out.println("Invalid contract.");
+            return;
+        }
+
+        // Save the contract to the file
+        ContractFileManager fileManager = new ContractFileManager();
+        fileManager.saveContract(contract);
+
+        // Remove the lease vehicle from inventory
+        dealership.removeVehicle(vin);
+
+        // Save updated inventory
+        DealershipFileManager dfm = new DealershipFileManager();
+        dfm.saveDealership(dealership);
+
+        System.out.println("Contract saved and vehicle removed from inventory.");
+
+
     }
 
 
