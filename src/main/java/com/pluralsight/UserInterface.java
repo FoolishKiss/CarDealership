@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class UserInterface {
 
+    //Scanner that can be used inside the class
+    private final Scanner userInterface = new Scanner(System.in);
+
     //Holds the dealership loaded from the file
     private Dealership dealership;
 
@@ -14,8 +17,7 @@ public class UserInterface {
         //Calls method to load inventory file
         init();
 
-        //Scanner takes user input
-        Scanner userInput = new Scanner(System.in);
+
         //Variable that stores the user input
         int command;
 
@@ -26,9 +28,9 @@ public class UserInterface {
             //Ask user for input
             System.out.println("Enter a menu option: ");
             //Stores user input into command variable
-            command = userInput.nextInt();
+            command = userInterface.nextInt();
             //Eats the newline
-            userInput.nextLine();
+            userInterface.nextLine();
 
             //Runs different method based off users input
             switch (command) {
@@ -71,7 +73,7 @@ public class UserInterface {
           //Ends the loop when user enters 99
         } while (command != 99);
         //Closes scanner
-        userInput.close();
+        userInterface.close();
     }
     //Method to create a DealershipFileManager that load dealership from the file and stores it in dealership
     private void init() {
@@ -115,14 +117,12 @@ public class UserInterface {
 
     //Method for handling price range input and results
     private void processGetByPriceRequest() {
-        //Scanner to take user price range input
-        Scanner price = new Scanner(System.in);
 
         //Asks user for price range and reads it as a double
         System.out.println("Enter min price: ");
-        double min = price.nextDouble();
+        double min = userInterface.nextDouble();
         System.out.println("Enter max price: ");
-        double max = price.nextDouble();
+        double max = userInterface.nextDouble();
 
         //Calls dealership method to find all vehicles in price range
         ArrayList<Vehicle> results = dealership.getVehiclesByPrice(min, max);
@@ -133,14 +133,12 @@ public class UserInterface {
 
     //Method to search users make model
     private void processGetByMakeModelRequest() {
-        //Scanner to get user make and model
-        Scanner makeModel = new Scanner(System.in);
 
         //Asks user for make and model
         System.out.println("Enter make: ");
-        String make = makeModel.nextLine();
+        String make = userInterface.nextLine();
         System.out.println("Enter model: ");
-        String model = makeModel.nextLine();
+        String model = userInterface.nextLine();
 
         //Calls dealership method to find all vehicles with make model
         ArrayList<Vehicle> results = dealership.getVehiclesByMakeModel(make, model);
@@ -150,14 +148,12 @@ public class UserInterface {
 
     //Method to search users make model
     private void processGetByYearRequest() {
-        //Scanner to get user make and model
-        Scanner year = new Scanner(System.in);
 
         //Asks user for min and max year
         System.out.println("Enter min year: ");
-        int minYear = year.nextInt();
+        int minYear = userInterface.nextInt();
         System.out.println("Enter max year: ");
-        int maxYear = year.nextInt();
+        int maxYear = userInterface.nextInt();
 
         //Calls dealership method to find all vehicles within year range
         ArrayList<Vehicle> results = dealership.getVehiclesByYear(minYear, maxYear);
@@ -167,12 +163,10 @@ public class UserInterface {
 
     //Method to search for user color
     private void processGetByColorRequest() {
-        // Scanner to get user color choice
-        Scanner userColor = new Scanner(System.in);
 
         // Ask user what color
         System.out.println("Enter color: ");
-        String color = userColor.nextLine();
+        String color = userInterface.nextLine();
 
         //Calls dealership method to find all vehicles with user color choice
         ArrayList<Vehicle> results = dealership.getVehiclesByColor(color);
@@ -183,34 +177,33 @@ public class UserInterface {
 
     //Method to add a vehicle
     private void processAddVehicleRequest() {
-        Scanner addVehicle = new Scanner(System.in);
 
         // Ask user for Vehicle info
         System.out.println("Enter VIN: ");
-        int vin = addVehicle.nextInt();
-        addVehicle.nextLine();
+        int vin = userInterface.nextInt();
+        userInterface.nextLine();
 
         System.out.println("Enter year: ");
-        int year = addVehicle.nextInt();
-        addVehicle.nextLine();
+        int year = userInterface.nextInt();
+        userInterface.nextLine();
 
         System.out.println("Enter make: ");
-        String make = addVehicle.nextLine();
+        String make = userInterface.nextLine();
 
         System.out.println("Enter model: ");
-        String model = addVehicle.nextLine();
+        String model = userInterface.nextLine();
 
         System.out.println("Enter vehicle type: ");
-        String type = addVehicle.nextLine();
+        String type = userInterface.nextLine();
 
         System.out.println("Enter color: ");
-        String color = addVehicle.nextLine();
+        String color = userInterface.nextLine();
 
         System.out.println("Enter odometer: ");
-        int odometer = addVehicle.nextInt();
+        int odometer = userInterface.nextInt();
 
         System.out.println("Enter price: ");
-        double price = addVehicle.nextDouble();
+        double price = userInterface.nextDouble();
 
         Vehicle newVehicle = new Vehicle(vin, year, make, model, type, color, odometer,price);
         dealership.addVehicle(newVehicle);
@@ -223,10 +216,9 @@ public class UserInterface {
 
     // Method to remove a vehicle
     private void processRemoveVehicleRequest() {
-        Scanner remove = new Scanner(System.in);
 
         System.out.println("Enter the VIN to remove vehicle: ");
-        int vin = remove.nextInt();
+        int vin = userInterface.nextInt();
 
         dealership.removeVehicle(vin);
 
@@ -238,14 +230,12 @@ public class UserInterface {
 
     //Method to search by mileage range
     private void processGetByMileageRequest() {
-        //Scanner to get users mileage range
-        Scanner mileage = new Scanner(System.in);
 
         //Ask user for min and max mileage
         System.out.println("Enter min mileage: ");
-        int min = mileage.nextInt();
+        int min = userInterface.nextInt();
         System.out.println("Enter max mileage: ");
-        int max = mileage.nextInt();
+        int max = userInterface.nextInt();
 
         //Calls dealership method to find all vehicles within year range
         ArrayList<Vehicle> results = dealership.getVehiclesByMileage(min, max);
@@ -256,12 +246,10 @@ public class UserInterface {
 
     //Method to search by type
     private void processGetByTypeRequest() {
-        //Scanner to get user type
-        Scanner typeVehicle = new Scanner(System.in);
 
         //Ask user what type of vehicle to look for
         System.out.println("Enter vehicle type (Sedan, truck, SUV, van): ");
-        String type = typeVehicle.nextLine();
+        String type = userInterface.nextLine();
 
         //Calls dealership method to find all vehicles matches
         ArrayList<Vehicle> results = dealership.getVehiclesByType(type);
@@ -272,13 +260,10 @@ public class UserInterface {
     //Method to sell or lease a vehicle
     private void processSellorLease() {
 
-        //Scanner to get user input
-        Scanner sellLease = new Scanner(System.in);
-
         // Ask user for the VIN to sell or lease
         System.out.println("Enter VIN of Vehicle you wish to Sell/Lease: ");
-        int vin = sellLease.nextInt();
-        sellLease.nextLine();
+        int vin = userInterface.nextInt();
+        userInterface.nextLine();
 
         // Find the vehicle by VIN in the inventory
         Vehicle vehicleToSell = null;
@@ -299,14 +284,14 @@ public class UserInterface {
 
         // Ask for contract info
         System.out.println("Enter customer name: ");
-        String name = sellLease.nextLine();
+        String name = userInterface.nextLine();
 
         System.out.println("Enter customer email: ");
-        String email = sellLease.nextLine();
+        String email = userInterface.nextLine();
 
         //Ask if it's a sale or lease
         System.out.println("Is this a sale or lease? (enter sale or lease):  ");
-        String type = sellLease.nextLine();
+        String type = userInterface.nextLine();
 
         // Get today's date
         String date = LocalDate.now().toString();
@@ -317,7 +302,7 @@ public class UserInterface {
 
             //Ask if the customer is financing
             System.out.println("Is the customer financing? (true/false)");
-            boolean isFianced = sellLease.nextBoolean();
+            boolean isFianced = userInterface.nextBoolean();
 
             // Create the sales contract
             contract = new SalesContract(date, name, email, vehicleToSell, isFianced);
