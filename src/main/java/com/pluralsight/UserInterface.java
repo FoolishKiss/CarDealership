@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -265,22 +267,14 @@ public class UserInterface {
         int vin = userInterface.nextInt();
         userInterface.nextLine();
 
-        // Find the vehicle by VIN in the inventory
-        Vehicle vehicleToSell = null;
+        // Matching vehicle is saved to variable vehicle to sell
+        Vehicle vehicleToSell = findVehicleByVin(vin);
 
-        //Loops through inventory to find match
-        for (Vehicle v : dealership.getAllVehicles()) {
-            if (v.getVin() == vin) {
-                vehicleToSell = v;
-                break;
+        // if no match the return message
+            if (vehicleToSell == null) {
+                System.out.println("Vehicle not found.");;
+                return;
             }
-        }
-
-        // If vehicle is not found
-        if (vehicleToSell == null) {
-            System.out.println("Vehicle not found.");
-            return;
-        }
 
         // Ask for contract info
         System.out.println("Enter customer name: ");
@@ -296,41 +290,57 @@ public class UserInterface {
         // Get today's date
         String date = LocalDate.now().toString();
 
-        Contract contract = null;
+        Contract contract = createContract(type, date, name,email,vehicleToSell);
+
+        if (contract == null) {
+            System.out.println("Invalid contract type.");
+            return;
+        }
+
+        new ContractFileManager().saveContract(contract);
+        dealership.removeVehicle(vin);
+
+        new DealershipFileManager().saveDealership(dealership);
+
+
+
+    }
+
+    // Method to find vehicle by vin
+    private Vehicle findVehicleByVin(int vin) {
+        //Loops through inventory to find match
+        for (Vehicle v : dealership.getAllVehicles()) {
+            if (v.getVin() == vin) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    //Method to create a contract
+    private Contract createContract(String type, String date, String name, String email, Vehicle vehicle) {
 
         if (type.equals("sales")) {
 
             //Ask if the customer is financing
             System.out.println("Is the customer financing? (true/false)");
+
             boolean isFianced = userInterface.nextBoolean();
 
-            // Create the sales contract
-            contract = new SalesContract(date, name, email, vehicleToSell, isFianced);
+            // Eats new line
+            userInterface.nextLine();
+
+            // Creates the sales contract
+            return new SalesContract(date, name, email, vehicle, isFianced);
 
         } else if (type.equals("lease")) {
 
             // Create the lease contract
-            contract = new LeaseContract(date, name, email, vehicleToSell);
+            return new LeaseContract(date, name, email, vehicle);
 
-        } else {
-            System.out.println("Invalid contract.");
-            return;
+
         }
-
-        // Save the contract to the file
-        ContractFileManager fileManager = new ContractFileManager();
-        fileManager.saveContract(contract);
-
-        // Remove the lease vehicle from inventory
-        dealership.removeVehicle(vin);
-
-        // Save updated inventory
-        DealershipFileManager dfm = new DealershipFileManager();
-        dfm.saveDealership(dealership);
-
-        System.out.println("Contract saved and vehicle removed from inventory.");
-
-
+        return null;
     }
 
 
