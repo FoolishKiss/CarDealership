@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.models;
 
 public class Vehicle {
     private int vin;
@@ -9,8 +9,9 @@ public class Vehicle {
     private String color;
     private int odometer;
     private double price;
+    private boolean sold;
 
-    public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+    public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, boolean sold) {
         this.vin = vin;
         this.year = year;
         this.make = make;
@@ -19,6 +20,7 @@ public class Vehicle {
         this.color = color;
         this.odometer = odometer;
         this.price = price;
+        this.sold = sold;
     }
 
     public int getVin() {
@@ -83,6 +85,14 @@ public class Vehicle {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 
     @Override
